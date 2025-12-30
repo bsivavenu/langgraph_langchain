@@ -8,3 +8,10 @@ wheels/
 
 # Virtual environments
 .venv
+
+__pycache__/
+.ipynb_checkpoints/
+.env
+.env.*
+*.zip
+*.pdf
