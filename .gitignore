@@ -5,6 +5,9 @@ build/
 dist/
 wheels/
 *.egg-info
+*.pyc
+*.pyo
+*.pyd
 
 # Virtual environments
 .venv
@@ -16,3 +19,34 @@ __pycache__/
 *.zip
 *.pdf
 .DS_Store
+
+# Virtual environment
+.env/
+venv/
+.python-version
+python-files/
+
+# Logs
+*.log
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# IDE / Editor files
+*.swp
+*.swo
+.DS_Store
+.idea/
+.vscode/
+*.iml
+
+# macOS files
+.DS_Store
+.AppleDouble
+
+# Thumbnails
+._*
+
+# Files created by pipenv
+Pipfile.lock    
+

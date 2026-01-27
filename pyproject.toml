@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11,<3.13"
 dependencies = [
+    "arxiv>=2.4.0",
     "docx2txt>=0.9",
     "faiss-cpu>=1.13.2",
     "ipykernel>=7.1.0",
@@ -14,6 +15,8 @@ dependencies = [
     "langchain-classic>=1.0.1",
     "langchain-community>=0.4.1",
     "langchain-experimental>=0.4.1",
+    "langchain-google-genai>=4.2.0",
+    "langchain-groq>=1.1.1",
     "langchain-huggingface>=1.2.0",
     "langchain-openai>=1.1.7",
     "langchain-pinecone>=0.2.13",
@@ -33,6 +36,7 @@ dependencies = [
     "sentence-transformers>=5.2.0",
     "streamlit>=1.53.0",
     "tiktoken>=0.12.0",
+    "wikipedia>=1.4.0",
 ]
 
 [tool.uv.workspace]
