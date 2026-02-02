@@ -1,9 +1,11 @@
 [project]
-name = "python-files"
+name = "langgraph-langchain-advanced"
 version = "0.1.0"
-description = "Add your description here"
+description = "Advanced LangGraph and LangChain concepts with practical implementations including RAG, agents, state management, and production patterns."
 readme = "README.md"
+authors = [{name = "Siva Venu", email = "bsivavenu@gmail.com"}]
 requires-python = ">=3.11,<3.13"
+keywords = ["langgraph", "langchain", "rag", "agents", "retrieval", "state-management", "agentic-ai"]
 dependencies = [
     "arxiv>=2.4.0",
     "docx2txt>=0.9",

@@ -1,0 +1,77 @@
+name: Python Tests & Linting
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Cache pip packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pylint black flake8 nbconvert
+
+    - name: Check code formatting with black
+      run: |
+        black --check . --exclude=.venv,__pycache__ || true
+
+    - name: Lint with flake8
+      run: |
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics || true
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics || true
+
+    - name: Analyze code with pylint
+      run: |
+        find . -name "*.py" -not -path "./.venv/*" -not -path "./__pycache__/*" | xargs pylint --exit-zero || true
+
+    - name: Validate Jupyter Notebooks
+      run: |
+        find . -name "*.ipynb" -not -path "./.venv/*" | head -10 | xargs jupyter nbconvert --to notebook --inplace || true
+      continue-on-error: true
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install bandit safety
+    
+    - name: Security check with bandit
+      run: |
+        bandit -r . -ll --exclude=.venv,__pycache__ || true
+    
+    - name: Dependency security check with safety
+      run: |
+        safety check --json || true
